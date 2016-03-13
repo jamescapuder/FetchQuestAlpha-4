@@ -318,17 +318,6 @@ public class GameManager : MonoBehaviour {
 		//print("initialised" + curHero.name);
 	}
 
-	void initialisePlayer(){
-		GameObject playerObject = new GameObject ();			// Create a new empty game object that will hold a hero.
-		Player thePlayer = playerObject.AddComponent<Player> ();			// Add the hero.cs script to the object.
-		// We can now refer to the object via this script.
-		thePlayer.transform.parent = PlayerFolder.transform;
-		//HeroFolder.Add (curHero);
-		thePlayer.init(this );							// Initialize the hero script.
-		thePlayer.name = "Player 1" ;						// Give the gem object a name in the Hierarchy pane.
-		THEPLAYER = thePlayer;
-		//print("initialised" + curHero.name);
-	}
 
 
 
@@ -509,26 +498,40 @@ public class GameManager : MonoBehaviour {
 		BoxCollider2D townBox = townStructureObject.AddComponent<BoxCollider2D>();
 		Rigidbody2D townRig = townStructureObject.AddComponent<Rigidbody2D> ();
 		print ("made it this far");
-
-
 		townBox.isTrigger = true;
 		townRig.gravityScale = 0f;
 		townRig.isKinematic = true;
-
-		// ************
-		// The first parameter for the init funciton was set to zero, but I changed it to TOwnStructureType as it should have been
-		// ************
 		newTownStructure.init (TownStructureType, this, THEPLAYER);
 
 		newTownStructure.name = "TownStructure " + TownStructureSet.Count;
 		TownStructureSet.Add (newTownStructure);
 
-		//This part will add the location for it on map
-
-		//Use the following function to get the mouse points;
+	}
 
 
+	void initialisePlayer(){
+		GameObject playerObject = new GameObject ();			// Create a new empty game object that will hold a hero.
+		Player thePlayer = playerObject.AddComponent<Player> ();			// Add the hero.cs script to the object.
+		playerObject.AddComponent<Animator>();
+		// We can now refer to the object via this script.
+		thePlayer.transform.parent = PlayerFolder.transform;
 
+		thePlayer.transform.position = new Vector3 (0f, 0f, 0f);
+
+		BoxCollider2D playerBox = playerObject.AddComponent<BoxCollider2D>();
+		Rigidbody2D playerRig = playerObject.AddComponent<Rigidbody2D> ();
+		print ("made it this far");
+
+
+		playerBox.isTrigger = true;
+		playerRig.gravityScale = 0f;
+		playerRig.isKinematic = true;
+		playerRig.constraints = RigidbodyConstraints2D.FreezeRotation;
+		//HeroFolder.Add (curHero);
+		thePlayer.init(this);							// Initialize the hero script.
+		thePlayer.name = "Player 1" ;						// Give the gem object a name in the Hierarchy pane.
+		THEPLAYER = thePlayer;
+		//print("initialised" + curHero.name);
 	}
 
 	// We get the TownStructure from the GUI and Colliders
