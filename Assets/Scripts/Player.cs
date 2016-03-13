@@ -9,6 +9,8 @@ This script will hold player specific information: current gold, experience/infl
 
 public class Player : MonoBehaviour {
 
+    Sprite mat;
+
     //Player's gold - self explanitory
 	public int Gold;
 
@@ -36,8 +38,13 @@ public class Player : MonoBehaviour {
     private List<Hero> questees;
 	public GameManager playerManager;
 
+    Rigidbody2D rbody;
+    Animator anim;
+    Player owner;
+    SpriteRenderer rend;
 
-	/*
+
+    /*
     Here we initialize the gold and XP to 0, and instantiate questees as an empty list of Hero objects.
     For gold and XP we talked about setting each to a random number such that gold+XP doesnt exceed a certain amount.
     We can either do that here or in another method, I'll leave it to your discretion.
@@ -45,7 +52,7 @@ public class Player : MonoBehaviour {
     some low number - more than 0 per "tick."
     */
 
-	public void init (GameManager m) {
+    public void init (GameManager m) {
 		playerManager = m;
 		this.Gold = 500;
         this.XP = 130;
@@ -53,12 +60,35 @@ public class Player : MonoBehaviour {
         this.incrementalIncome = 0;
         this.questees = new List<Hero>();
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+        rbody = m.GetComponent<Rigidbody2D>();
+        anim =m.GetComponent<Animator>();
+        rend =m.GetComponent<SpriteRenderer>();
+        rend.sortingLayerName = "buildingLayer";
+
+        //var modelObject = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        //var modelObject = GameObject.CreatePrimitive(PrimitiveType.Quad);	// Create a quad object for holding the gem texture.
+        //model = modelObject.AddComponent<TownStructure>();						// Add a gemModel script to control visuals of the gem.
+        //model.init(STRUCTTYPE, owner, owner.THEPLAYER);	
+        //print (this.transform.position);
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector2 moveVec = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (moveVec != Vector2.zero)
+        {
+            anim.SetBool("isWalking", true);
+            anim.SetFloat("input_x", moveVec.x);
+            anim.SetFloat("input_y", moveVec.y);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+        }
+        rbody.MovePosition(rbody.position + moveVec * Time.deltaTime);
+    }
 
 
     /*

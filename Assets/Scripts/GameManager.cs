@@ -109,6 +109,8 @@ public class GameManager : MonoBehaviour {
 	public int curStructType;
 
 
+    public Sprite mySprite;
+
 
 	// Use this for initialization
 
@@ -512,9 +514,16 @@ public class GameManager : MonoBehaviour {
 	void initialisePlayer(){
 		GameObject playerObject = new GameObject ();			// Create a new empty game object that will hold a hero.
 		Player thePlayer = playerObject.AddComponent<Player> ();			// Add the hero.cs script to the object.
-		playerObject.AddComponent<Animator>();
+		Animator anim = playerObject.AddComponent<Animator>();
+        anim.runtimeAnimatorController = Resources.Load("Animations/playerAC") as RuntimeAnimatorController;
+        SpriteRenderer renderer = playerObject.AddComponent<SpriteRenderer>();
+        Object[] sprites;
+        sprites = Resources.LoadAll("TextureFold/361_character_sheet");
+        renderer.sprite = (Sprite)sprites[0];
 		// We can now refer to the object via this script.
 		thePlayer.transform.parent = PlayerFolder.transform;
+
+
 
 		thePlayer.transform.position = new Vector3 (0f, 0f, 0f);
 

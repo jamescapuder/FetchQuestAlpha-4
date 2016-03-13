@@ -7,12 +7,15 @@ public class PlayerModel : MonoBehaviour {
 	Rigidbody2D rbody;
 	Animator anim;
 	Player owner;
+    SpriteRenderer rend;
 
 
 	public void init(Player owner){
-		rbody = GetComponent<Rigidbody2D> ();
-		anim = GetComponent<Animator> ();
-	}
+		rbody = owner.GetComponent<Rigidbody2D> ();
+		anim = owner.GetComponent<Animator>();
+        rend = owner.GetComponent<SpriteRenderer>();
+        rend.sortingLayerName = "buildingLayer";
+    }
 
 	void Update(){
 		Vector2 moveVec = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
