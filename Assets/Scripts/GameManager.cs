@@ -512,14 +512,14 @@ public class GameManager : MonoBehaviour {
 
 
 	void initialisePlayer(){
-		GameObject playerObject = new GameObject ();			// Create a new empty game object that will hold a hero.
-		Player thePlayer = playerObject.AddComponent<Player> ();			// Add the hero.cs script to the object.
-		Animator anim = playerObject.AddComponent<Animator>();
-        anim.runtimeAnimatorController = Resources.Load("Animations/playerAC") as RuntimeAnimatorController;
-        SpriteRenderer renderer = playerObject.AddComponent<SpriteRenderer>();
-        Object[] sprites;
-        sprites = Resources.LoadAll("TextureFold/361_character_sheet");
-        renderer.sprite = (Sprite)sprites[0];
+		GameObject playerObject = GameObject.FindGameObjectWithTag ("Player");			// Create a new empty game object that will hold a hero.
+		Player thePlayer = playerObject.GetComponent<Player> ();			// Add the hero.cs script to the object.
+//		Animator anim = playerObject.AddComponent<Animator>();
+//        anim.runtimeAnimatorController = Resources.Load("Animations/playerAC") as RuntimeAnimatorController;
+//        SpriteRenderer renderer = playerObject.AddComponent<SpriteRenderer>();
+//        Object[] sprites;
+//        sprites = Resources.LoadAll("TextureFold/361_character_sheet");
+//        renderer.sprite = (Sprite)sprites[0];
 		// We can now refer to the object via this script.
 		thePlayer.transform.parent = PlayerFolder.transform;
 
@@ -535,10 +535,10 @@ public class GameManager : MonoBehaviour {
 		playerBox.isTrigger = true;
 		playerRig.gravityScale = 0f;
 		playerRig.isKinematic = true;
-		playerRig.constraints = RigidbodyConstraints2D.FreezeRotation;
+		//playerRig.constraints = RigidbodyConstraints2D.FreezeRotation;
 		//HeroFolder.Add (curHero);
 		thePlayer.init(this);							// Initialize the hero script.
-		thePlayer.name = "Player 1" ;						// Give the gem object a name in the Hierarchy pane.
+		//thePlayer.name = "Player 1" ;						// Give the gem object a name in the Hierarchy pane.
 		THEPLAYER = thePlayer;
 		//print("initialised" + curHero.name);
 	}
@@ -813,8 +813,8 @@ public class GameManager : MonoBehaviour {
 
 
 	void OnGUI () {
-		GUI.Button (new Rect (10,Screen.height - 80,150,40), "Player Gold: " + THEPLAYER.Gold + " \n Player XP: "+THEPLAYER.XP ) ; 
-		GUI.Button (new Rect (Screen.width - 160,Screen.height - 80,150,40), "Infrastructure Level: " + THETOWN.infrastructureLevel ) ; 
+		//GUI.Button (new Rect (10,Screen.height - 80,150,40), "Player Gold: " + THEPLAYER.Gold + " \n Player XP: "+THEPLAYER.XP ) ; 
+		//GUI.Button (new Rect (Screen.width - 160,Screen.height - 80,150,40), "Infrastructure Level: " + THETOWN.infrastructureLevel ) ; 
 		// Printing goes to the Console pane.  
 		// If an object doesn't extend monobehavior, calling print won't do anything.  
 		// Make sure "Collapse" isn't selected in the Console pane if you want to see duplicate messages.

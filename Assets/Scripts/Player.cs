@@ -60,9 +60,9 @@ public class Player : MonoBehaviour {
         this.incrementalIncome = 0;
         this.questees = new List<Hero>();
 
-        rbody = m.GetComponent<Rigidbody2D>();
-        anim =m.GetComponent<Animator>();
-        rend =m.GetComponent<SpriteRenderer>();
+        rbody = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        rend = GetComponent<SpriteRenderer>();
         rend.sortingLayerName = "buildingLayer";
 
         //var modelObject = GameObject.CreatePrimitive(PrimitiveType.Quad);
